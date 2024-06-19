@@ -1,0 +1,556 @@
+[
+  {
+    "schemaName": "public",
+    "tableName": "answers",
+    "predictions": [
+      {
+        "input": "public answers id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9967801570892334,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public answers review_comment",
+        "column": "review_comment",
+        "shape": "POST_COMMENT",
+        "confidence": 0.930330753326416,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public answers year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.9878679513931274,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "answers_public",
+    "predictions": [
+      {
+        "input": "public answers_public id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9955429434776306,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public answers_public review_comment",
+        "column": "review_comment",
+        "shape": "POST_COMMENT",
+        "confidence": 0.7209945321083069,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public answers_public year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.9801598787307739,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "campus_survey_logs",
+    "predictions": [
+      {
+        "input": "public campus_survey_logs id",
+        "column": "id",
+        "shape": "LOGS",
+        "confidence": 0.9897913336753845,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "campuses",
+    "predictions": [
+      {
+        "input": "public campuses accreditation_pt",
+        "column": "accreditation_pt",
+        "shape": "PERSON_JOB_DESCRIPTOR",
+        "confidence": 0.1035572290420532,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses address",
+        "column": "address",
+        "shape": "FULL_ADDRESS",
+        "confidence": 0.9633333683013916,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses city",
+        "column": "city",
+        "shape": "CITY",
+        "confidence": 0.9979034662246704,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses code_pt",
+        "column": "code_pt",
+        "shape": "TAX_CODE",
+        "confidence": 0.2920660674571991,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses faximile",
+        "column": "faximile",
+        "shape": "PASSWORD",
+        "confidence": 0.1862500458955765,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses number_sk_pt",
+        "column": "number_sk_pt",
+        "shape": "COMMERCE_PRODUCT",
+        "confidence": 0.9254229068756104,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses phone_number",
+        "column": "phone_number",
+        "shape": "PHONE_NUMBER",
+        "confidence": 0.9968791007995605,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public campuses postal_code",
+        "column": "postal_code",
+        "shape": "TAX_CODE",
+        "confidence": 0.8200300931930542,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "form_groups",
+    "predictions": [
+      {
+        "input": "public form_groups description",
+        "column": "description",
+        "shape": "COMMERCE_PRODUCT_DESCRIPTION",
+        "confidence": 0.6592286825180054,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public form_groups id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.998404324054718,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public form_groups name",
+        "column": "name",
+        "shape": "COMPANY_NAME",
+        "confidence": 0.9217158555984497,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public form_groups year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.9941995143890381,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "level_index_on_variables",
+    "predictions": [
+      {
+        "input": "public level_index_on_variables description_level_variable",
+        "column": "description_level_variable",
+        "shape": "SYSTEM_FILE_TYPE",
+        "confidence": 0.4688221216201782,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public level_index_on_variables id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9959055185317993,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "level_indices",
+    "predictions": [
+      {
+        "input": "public level_indices description",
+        "column": "description",
+        "shape": "COMMERCE_PRODUCT_DESCRIPTION",
+        "confidence": 0.5109643340110779,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public level_indices id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9955365657806396,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public level_indices value",
+        "column": "value",
+        "shape": "SYSTEM_FILE_TYPE",
+        "confidence": 0.2866524755954742,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "options",
+    "predictions": [
+      {
+        "input": "public options id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9979245662689209,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public options value",
+        "column": "value",
+        "shape": "DATABASE_NAME",
+        "confidence": 0.2180666327476501,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "public_survey_logs",
+    "predictions": [
+      {
+        "input": "public public_survey_logs id",
+        "column": "id",
+        "shape": "LOGS",
+        "confidence": 0.9925121068954468,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "public_user",
+    "predictions": [
+      {
+        "input": "public public_user email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.9947600960731506,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public public_user id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9980528354644775,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public public_user identify_number",
+        "column": "identify_number",
+        "shape": "VEHICLE_VRM",
+        "confidence": 0.1815641075372696,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public public_user name",
+        "column": "name",
+        "shape": "USERNAME",
+        "confidence": 0.9523282051086426,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public public_user year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.994182288646698,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "questions",
+    "predictions": [
+      {
+        "input": "public questions id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9988155364990234,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public questions question",
+        "column": "question",
+        "shape": "DATABASE_COLUMN",
+        "confidence": 0.5178093910217285,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public questions year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.9903580546379089,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "result_variables",
+    "predictions": [
+      {
+        "input": "public result_variables id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9981039762496948,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public result_variables year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.9943596720695496,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "results",
+    "predictions": [
+      {
+        "input": "public results id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9966760873794556,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public results result",
+        "column": "result",
+        "shape": "SYSTEM_FILE_TYPE",
+        "confidence": 0.9913431406021118,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public results year",
+        "column": "year",
+        "shape": "AGE",
+        "confidence": 0.9880218505859375,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "role_on_form_groups",
+    "predictions": [
+      {
+        "input": "public role_on_form_groups id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.996304988861084,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "role_users",
+    "predictions": [
+      {
+        "input": "public role_users id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9978758096694946,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public role_users id_number_type",
+        "column": "id_number_type",
+        "shape": "UUID",
+        "confidence": 0.8445261120796204,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public role_users name",
+        "column": "name",
+        "shape": "PERSON_JOB_TITLE",
+        "confidence": 0.8547197580337524,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public role_users role",
+        "column": "role",
+        "shape": "ROLE",
+        "confidence": 0.7771853804588318,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "url_public_survey",
+    "predictions": [
+      {
+        "input": "public url_public_survey id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9972767233848572,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "users",
+    "predictions": [
+      {
+        "input": "public users email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.9942367076873779,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9862675666809082,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users image",
+        "column": "image",
+        "shape": "INTERNET_AVATAR",
+        "confidence": 0.5341095924377441,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users name",
+        "column": "name",
+        "shape": "USERNAME",
+        "confidence": 0.8959667682647705,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users password",
+        "column": "password",
+        "shape": "PASSWORD",
+        "confidence": 0.9364579916000366,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "variable_on_form_groups",
+    "predictions": [
+      {
+        "input": "public variable_on_form_groups id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9969475865364075,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "variables",
+    "predictions": [
+      {
+        "input": "public variables description",
+        "column": "description",
+        "shape": "COMMERCE_PRODUCT_DESCRIPTION",
+        "confidence": 0.9412952661514282,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public variables id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9987045526504517,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public variables name",
+        "column": "name",
+        "shape": "COMMERCE_PRODUCT_NAME",
+        "confidence": 0.8353948593139648,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  }
+]

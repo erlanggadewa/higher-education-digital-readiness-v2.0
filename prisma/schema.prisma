@@ -2,73 +2,394 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
-}
-
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
-// Necessary for Next auth
-model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String? // @db.Text
-    access_token             String? // @db.Text
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String? // @db.Text
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
-
-    @@unique([provider, providerAccountId])
-}
-
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider = "postgresql"
+  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+  id       String  @id @default(cuid())
+  name     String
+  email    String  @unique
+  password String
+  image    String?
+  role     String
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  campus     Campus?
+  roleUser   RoleUser     @relation(fields: [role], references: [role])
+  publicUser PublicUser[]
+
+  @@map("users")
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+// ! Jangan merubah model / tabel yang ada diatas ini
+// ! Jika ingin menambahkan model / tabel baru, tambahkan dibawah ini
 
-    @@unique([identifier, token])
+enum AnswerStatus {
+  APPROVED
+  REJECTED
+  WAITING
+}
+
+enum ResultUserType {
+  PUBLIC
+  CAMPUS
+}
+
+model Answer {
+  id               String       @id @default(cuid())
+  questionId       String       @map("question_id")
+  optionId         String       @map("option_id")
+  revisionOptionId String       @map("revision_option_id")
+  campusId         String       @map("campus_id")
+  year             String
+  answerStatus     AnswerStatus @default(WAITING) @map("answer_status")
+  reviewComment    String?      @map("review_comment")
+  reviewDate       DateTime?    @map("review_date")
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  question       Question? @relation(fields: [questionId], references: [id])
+  option         Option?   @relation("CampusAnswer", fields: [optionId], references: [id])
+  revisionOption Option?   @relation("ReviewerAnswer", fields: [revisionOptionId], references: [id])
+  campus         Campus?   @relation(fields: [campusId], references: [campusId])
+
+  @@unique([questionId, campusId, year])
+  @@index([year])
+  @@index([questionId])
+  @@index([revisionOptionId])
+  @@index([optionId])
+  @@index([campusId])
+  @@map("answers")
+}
+
+model AnswerPublic {
+  id               String       @id @default(cuid())
+  questionId       String       @map("question_id")
+  optionId         String       @map("option_id")
+  revisionOptionId String       @map("revision_option_id")
+  campusId         String       @map("campus_id")
+  userPublicId     String       @map("user_public_id")
+  year             String
+  answerStatus     AnswerStatus @default(WAITING) @map("answer_status")
+  reviewComment    String?      @map("review_comment")
+  reviewDate       DateTime?    @map("review_date")
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  question       Question?   @relation(fields: [questionId], references: [id])
+  option         Option?     @relation("CampusAnswerPublic", fields: [optionId], references: [id])
+  revisionOption Option?     @relation("ReviewerAnswerPublic", fields: [revisionOptionId], references: [id])
+  campus         Campus?     @relation(fields: [campusId], references: [campusId])
+  userPublic     PublicUser? @relation(fields: [userPublicId], references: [id])
+
+  @@unique([questionId, userPublicId, campusId, year])
+  @@index([year])
+  @@index([questionId])
+  @@index([revisionOptionId])
+  @@index([optionId])
+  @@index([campusId])
+  @@map("answers_public")
+}
+
+model Campus {
+  campusId        String   @id @unique @map("campus_id")
+  codePt          String   @unique @map("code_pt")
+  statusPt        Boolean  @map("status_pt")
+  accreditationPt String   @map("accreditation_pt")
+  standingDate    DateTime @map("standing_date")
+  numberSkPt      String   @map("number_sk_pt")
+  dateSkPt        DateTime @map("date_sk_pt")
+  address         String
+  city            String
+  postalCode      String   @map("postal_code")
+  phoneNumber     String   @map("phone_number")
+  faximile        String
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  user            User              @relation(fields: [campusId], references: [id])
+  result          Result[]
+  answer          Answer[]
+  resultVariable  ResultVariable[]
+  answerPublic    AnswerPublic[]
+  campusSurveyLog CampusSurveyLog[]
+
+  @@index([campusId])
+  @@map("campuses")
+}
+
+model PublicUser {
+  id             String  @id @default(cuid())
+  name           String
+  email          String
+  identifyNumber String  @map("identify_number")
+  role           String  @map("role")
+  campusId       String  @map("campus_id")
+  isActived      Boolean @default(true) @map("is_actived")
+  year           String
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  user            User              @relation(fields: [campusId], references: [id])
+  roleUser        RoleUser          @relation(fields: [role], references: [role])
+  answerPublic    AnswerPublic[]
+  publicSurveyLog PublicSurveyLog[]
+
+  @@map("public_user")
+}
+
+model Option {
+  id         String @id @default(cuid())
+  questionId String @map("question_id")
+  value      String
+  point      Float
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  question       Question?      @relation(fields: [questionId], references: [id])
+  campusAnswer   Answer[]       @relation("CampusAnswer")
+  reviewerAnswer Answer[]       @relation("ReviewerAnswer")
+  answerPublic   AnswerPublic[] @relation("CampusAnswerPublic")
+  reviewerPublic AnswerPublic[] @relation("ReviewerAnswerPublic")
+
+  @@index([questionId])
+  @@map("options")
+}
+
+model Question {
+  id                    String  @id @default(cuid())
+  question              String
+  year                  String
+  isActived             Boolean @default(true) @map("is_actived")
+  variableOnFormGroupId String  @map("variable_on_form_group_id")
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  option         Option[]
+  answer         Answer[]
+  answerPublic   AnswerPublic[]
+  variableOnForm VariableOnFormGroup? @relation(fields: [variableOnFormGroupId], references: [id])
+
+  @@index([year])
+  @@map("questions")
+}
+
+model FormGroup {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  isActived   Boolean @default(true) @map("is_actived")
+  isPublished Boolean @default(false) @map("is_published")
+  year        String
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  variableOnFormGroup VariableOnFormGroup[]
+  roleOnFormGroup     RoleOnFormGroup[]
+
+  @@map("form_groups")
+}
+
+model Result {
+  id         String  @id @default(cuid())
+  campusId   String? @map("campus_id")
+  result     String
+  year       String
+  isApproved Boolean @default(false) @map("is_approved")
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  campus         Campus?          @relation(fields: [campusId], references: [campusId])
+  resultVariable ResultVariable[]
+
+  @@index([year])
+  @@index([campusId])
+  @@map("results")
+}
+
+model ResultVariable {
+  id           String         @id @default(cuid())
+  resultId     String?        @map("result_id")
+  variableId   String         @map("variable_id")
+  score        Float
+  campusId     String         @map("campus_id")
+  isApproved   Boolean        @default(false) @map("is_approved")
+  year         String
+  isPublicUser ResultUserType
+
+  result   Result?   @relation(fields: [resultId], references: [id])
+  variable Variable? @relation(fields: [variableId], references: [id])
+  campus   Campus?   @relation(fields: [campusId], references: [campusId])
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@index([year])
+  @@index([campusId])
+  @@index([variableId])
+  @@index([resultId])
+  @@map("result_variables")
+}
+
+model Variable {
+  id          String @id @default(cuid())
+  name        String
+  description String
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  resultVariable        ResultVariable[]
+  levelIndexOnVariables LevelIndexOnVariables[]
+  variableOnFormGroup   VariableOnFormGroup[]
+
+  @@map("variables")
+}
+
+model LevelIndexOnVariables {
+  id                       String @id @default(cuid())
+  variableId               String @map("variable_id")
+  levelIndexId             String @map("level_index")
+  descriptionLevelVariable String @map("description_level_variable")
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  levelIndex LevelIndex? @relation(fields: [levelIndexId], references: [id])
+  variable   Variable?   @relation(fields: [variableId], references: [id])
+
+  @@index([levelIndexId])
+  @@index([variableId])
+  @@map("level_index_on_variables")
+}
+
+model LevelIndex {
+  id          String @id @default(cuid())
+  value       String @map("value")
+  description String
+  minPoint    Float  @map("min_point")
+  maxPoint    Float  @map("max_point")
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  levelIndexOnVariables LevelIndexOnVariables[]
+
+  @@map("level_indices")
+}
+
+model RoleUser {
+  id            String  @id @default(cuid())
+  role          String  @unique
+  name          String
+  idNumberType  String? @map("id_number_type")
+  isParticipant Boolean @default(true) @map("is_participant")
+
+  createdAt       DateTime?         @default(now()) @map("created_at")
+  updatedAt       DateTime?         @updatedAt @map("updated_at")
+  publicUser      PublicUser[]
+  roleOnFormGroup RoleOnFormGroup[]
+  user            User[]
+
+  @@map("role_users")
+}
+
+model RoleOnFormGroup {
+  id          String @id @default(cuid())
+  formGroupId String @map("form_group_id") // relation scalar field (used in the `@relation` attribute above)
+  role        String @map("role") // relation scalar field (used in the `@relation` attribute above)
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  formGroup FormGroup @relation(fields: [formGroupId], references: [id])
+  roleUser  RoleUser  @relation(fields: [role], references: [role])
+
+  @@unique([role, formGroupId])
+  @@map("role_on_form_groups")
+}
+
+model VariableOnFormGroup {
+  id          String    @id @default(cuid())
+  variable    Variable  @relation(fields: [variableId], references: [id])
+  variableId  String    @map("variable_id") // relation scalar field (used in the `@relation` attribute above)
+  formGroup   FormGroup @relation(fields: [formGroupId], references: [id])
+  formGroupId String    @map("form_group_id") // relation scalar field (used in the `@relation` attribute above)
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  question        Question[]
+  campusSurveyLog CampusSurveyLog[]
+  publicSurveyLog PublicSurveyLog[]
+
+  @@unique([formGroupId, variableId])
+  @@map("variable_on_form_groups")
+}
+
+model CampusSurveyLog {
+  id String @id @default(cuid())
+
+  campusId              String          @map("campus_id")
+  variableOnFormGroupId String          @map("variable_on_form_group_id")
+  status                SurveyLogStatus
+
+  campus              Campus              @relation(fields: [campusId], references: [campusId])
+  variableOnFormGroup VariableOnFormGroup @relation(fields: [variableOnFormGroupId], references: [id])
+  createdAt           DateTime?           @default(now()) @map("created_at")
+  updatedAt           DateTime?           @updatedAt @map("updated_at")
+
+  @@unique([campusId, variableOnFormGroupId])
+  @@map("campus_survey_logs")
+}
+
+model PublicSurveyLog {
+  id String @id @default(cuid())
+
+  publicUserId          String          @map("public_user_id")
+  variableOnFormGroupId String          @map("variable_on_form_group_id")
+  status                SurveyLogStatus
+
+  publicUser          PublicUser          @relation(fields: [publicUserId], references: [id])
+  variableOnFormGroup VariableOnFormGroup @relation(fields: [variableOnFormGroupId], references: [id])
+  createdAt           DateTime?           @default(now()) @map("created_at")
+  updatedAt           DateTime?           @updatedAt @map("updated_at")
+
+  @@unique([publicUserId, variableOnFormGroupId])
+  @@map("public_survey_logs")
+}
+
+model UrlPublicSurvey {
+  id      String @id @default(cuid())
+  payload Json
+
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@map("url_public_survey")
+}
+
+enum SurveyLogStatus {
+  // ANSWERED
+  WAITING
+  REVIEWED
 }
